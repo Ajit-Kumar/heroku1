@@ -1,5 +1,5 @@
 from bokeh.plotting import figure,output_file,save
-from bokeh.io import show
+from bokeh.io import curdoc,show
 
 x=[1,2,3,4,5]
 y=[3,4,5,6,7]
