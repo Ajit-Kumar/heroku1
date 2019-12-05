@@ -1,10 +1,23 @@
-from bokeh.plotting import figure,output_file,save
-from bokeh.io import curdoc,show
+from bokeh.models import ColumnDataSource
+from bokeh.plotting import figure
+from bokeh.io import curdoc
 
-x=[1,2,3,4,5]
-y=[3,4,5,6,7]
+def modify_doc(doc):
+    """Add a plotted function to the document.
 
-fig=figure(plot_height=500,plot_width=1000, tools="save", x_range=[0,10], y_range=[0,10],toolbar_location="below")
-fig.line(x=x,y=y)
-fig.image_url(url=["myapp/static/images/base.png"],x=0,y=0,w=100,h=100,anchor="bottom_left")
-show(fig)
+    Arguments:
+        doc: A bokeh document to which elements can be added.
+    """
+    x_values = range(10)
+    y_values = [x ** 2 for x in x_values]
+    data_source = ColumnDataSource(data=dict(x=x_values, y=y_values))
+    plot = figure(title="plot title ca675",
+                  tools="crosshair,pan,reset,save,wheel_zoom",)
+    plot.line('x', 'y', source=data_source, line_width=3, line_alpha=0.6)
+    doc.add_root(plot)
+    doc.title = "doc title CA675"
+
+def main():
+    modify_doc(curdoc())
+   
+main()
